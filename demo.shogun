@@ -1,0 +1,71 @@
+// This file demonstrates the syntax and construction of a Shogun
+// patch file, effective from version 0.5 onward.
+// Note that comments may begin with any character that is not
+// defined as a bank prefix, so you can follow whatever
+// convention your favorite language uses: %, #, etc.
+// (Multiline comments are not allowed, except as shown
+//  here, and these aren't *really* multiline.)
+
+// Shogun patch files may optionally begin with a block of
+// bank-prefix definitions. If no prefixes are defined,
+// Shogun will assume that patch changes are listed with
+// an appropriate bank number, as:
+// 2 124 // sets patch to bank 2, patch 124
+// If Shogun sees a line with no bank prefix, it will
+// send *only* a patch change (that is, the current bank
+// on whatever device is receiving the message will be
+// preserved).
+
+
+// As with most aspects of Shogun patch files, whitespace is
+// irrelevant except when separating data, so lining up the
+// numeric values for the following bank-prefix declarations
+// won't be a problem for Shogun.
+
+#define A    0
+#define B    1
+#define C    2
+#define D    3
+#define E    4
+#define F    5
+#define G    6
+
+// It is often convenient to define a series of bank prefixes at
+// once. Shogun patch files allow you to do so as follows:
+
+#define G, H, I, J, K, L, M, N 7-14
+
+// (As a result of this syntax, commas are not allowed anywhere
+//  in bank prefixes.)
+
+// Shogun will assign each listed prefix to a number in the
+// given sequence. If by some accident you specify a range
+// larger than the number of prefixes you list, Shogun will
+// use the first n integers, where n is the number of prefixes
+// you have entered. Similarly, if you enter more prefixes
+// than fit in your range, Shogun will simply continue on
+// through the integers.
+// (The attentive reader will note that this behavior allows
+//  the following shortcut:
+//  #define A, B, C, D 3 // assigns A = 3, B = 4, etc.
+// )
+
+// Now that prefixes have been established, we can write out
+// our actual patch-change list. Note that we may still use
+// numeric bank prefixes, whether or not they have an
+// associated #define statement.
+
+@ Act I
+B 23
+A 12
+G 44
+B 120 // You can, of course, comment on individual entries.
+
+@ Act II
+C 51
+J 59
+
+// Please send any comments, questions, or bug reports to:
+// shogun@benlaverriere.com
+// Thank you for using Shogun!
+
